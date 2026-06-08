@@ -1,0 +1,51 @@
+# Lottery Generator — production stack.
+#
+#   docker compose up -d --build           # web + nginx (open http://SERVER:8080)
+#   docker compose --profile cloudflare up -d --build   # also start Cloudflare Tunnel
+#
+# The "cloudflare" profile publishes the site through a Cloudflare Tunnel so you
+# never have to open a port on your personal server (see .env.example).
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: lottery-generator-web
+    restart: unless-stopped
+    expose:
+      - "8000"            # internal only; nginx talks to this
+    environment:
+      - PYTHONUNBUFFERED=1
+      # Makes the site private. Anyone with  https://your-domain/?key=<token>
+      # gets in. Set ACCESS_TOKEN in your .env file (blank = public).
+      - ACCESS_TOKEN=${ACCESS_TOKEN:-}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; urllib.request.urlopen('http://localhost:8000/api/health'); sys.exit(0)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    depends_on:
+      web:
+        condition: service_started
+    ports:
+      - "8080:80"         # host:container — change 8080 to taste
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+
+  # Optional: expose the site via Cloudflare Tunnel (no inbound ports needed).
+  # Enable with:  docker compose --profile cloudflare up -d
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    profiles: ["cloudflare"]
+    command: tunnel --no-autoupdate run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN:?Set TUNNEL_TOKEN in your .env file}
+    depends_on:
+      - nginx

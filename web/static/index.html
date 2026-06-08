@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lottery Number Generator</title>
+  <meta name="description" content="Generate cryptographically random lottery number combinations." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>🎲</text></svg>" />
+</head>
+<body>
+  <header class="topbar">
+    <h1 class="brand">🎲 Lottery Generator</h1>
+    <button id="themeToggle" class="ghost-btn" type="button" aria-label="Toggle dark mode">
+      🌙 Dark
+    </button>
+  </header>
+
+  <main class="container">
+    <section class="panel controls" aria-label="Controls">
+      <div class="field">
+        <label for="format">Format</label>
+        <select id="format"></select>
+      </div>
+
+      <div class="field custom-only hidden">
+        <label for="customPick">Numbers / set</label>
+        <input id="customPick" type="number" min="1" max="200" value="6" />
+      </div>
+
+      <div class="field custom-only hidden">
+        <label for="customMax">Highest number</label>
+        <input id="customMax" type="number" min="1" max="999" value="49" />
+      </div>
+
+      <div class="field">
+        <label for="count">Sets</label>
+        <input id="count" type="number" min="1" max="1000" value="5" />
+      </div>
+
+      <div class="field switch-field">
+        <label class="switch">
+          <input id="unique" type="checkbox" />
+          <span class="slider"></span>
+        </label>
+        <span class="switch-label">Unique sets (no repeats)</span>
+      </div>
+
+      <div class="actions">
+        <button id="generate" class="accent-btn" type="button">✨ Generate</button>
+        <button id="clear" class="btn" type="button">Clear</button>
+        <button id="copyAll" class="btn" type="button">Copy all</button>
+        <button id="saveTxt" class="btn" type="button">Save TXT</button>
+        <button id="exportCsv" class="btn" type="button">Export CSV</button>
+      </div>
+    </section>
+
+    <p id="status" class="status" role="status" aria-live="polite">Ready.</p>
+
+    <section id="results" class="results" aria-label="Results"></section>
+
+    <div id="empty" class="empty">
+      <span class="empty-emoji">🍀</span>
+      <p>No numbers yet. Choose a format and hit <strong>Generate</strong>.</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <span>Cryptographically random via Python's <code>secrets</code> module.</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
