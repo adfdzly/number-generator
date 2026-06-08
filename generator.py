@@ -1,4 +1,4 @@
-"""Core lottery combination generation logic.
+"""Core number-combination generation logic.
 
 This module is shared by the Tkinter desktop app and the Flask web app.
 

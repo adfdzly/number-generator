@@ -234,7 +234,7 @@ function download(filename, content, type) {
 
 function saveTxt() {
   if (!lastSets.length) return setStatus("Nothing to save.", true);
-  download("lottery.txt", formattedAll() + "\n", "text/plain");
+  download("numbers.txt", formattedAll() + "\n", "text/plain");
   setStatus("Saved TXT.");
 }
 
@@ -243,7 +243,7 @@ function exportCsv() {
   const pick = lastSets[0].length;
   const header = ["Set", ...Array.from({ length: pick }, (_, i) => `N${i + 1}`)];
   const rows = lastSets.map((nums, i) => [i + 1, ...nums].join(","));
-  download("lottery.csv", [header.join(","), ...rows].join("\n") + "\n", "text/csv");
+  download("numbers.csv", [header.join(","), ...rows].join("\n") + "\n", "text/csv");
   setStatus("Exported CSV.");
 }
 

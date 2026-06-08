@@ -1,4 +1,4 @@
-"""Flask web front-end for the lottery number generator.
+"""Flask web front-end for the number generator.
 
 Reuses the exact same :mod:`generator` and :mod:`utils` modules as the desktop
 app. Serves a small single-page UI from ``static/`` and exposes a JSON API.
@@ -70,7 +70,7 @@ def _denied() -> Response:
         "<p>This site is private. Open it with your access link.</p></body>"
     )
     resp = Response(body, status=401, mimetype="text/html")
-    resp.headers["WWW-Authenticate"] = "Token realm=lottery"
+    resp.headers["WWW-Authenticate"] = "Token realm=number-generator"
     return resp
 
 
@@ -199,7 +199,7 @@ def export_csv():
         200,
         {
             "Content-Type": "text/csv; charset=utf-8",
-            "Content-Disposition": "attachment; filename=lottery.csv",
+            "Content-Disposition": "attachment; filename=numbers.csv",
         },
     )
 

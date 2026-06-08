@@ -1,8 +1,8 @@
-# 🎲 Lottery Number Generator
+# 🎲 Number Generator
 
-Generate lottery-style number combinations with **cryptographically strong**
-randomness (Python's `secrets` module — not `random`). Ships as **two
-front-ends that share the same core engine**:
+Generate random number combinations (lottery-style formats like 6/49) with
+**cryptographically strong** randomness (Python's `secrets` module — not
+`random`). Ships as **two front-ends that share the same core engine**:
 
 * a **Tkinter desktop app**, and
 * a **Flask web app** ready to deploy with **Docker + nginx + Cloudflare**,
@@ -37,7 +37,7 @@ Number generator/
 ```
 
 `generator.py` and `utils.py` are imported by **both** the desktop and web apps,
-so there is a single source of truth for the lottery logic.
+so there is a single source of truth for the generation logic.
 
 ---
 
@@ -136,7 +136,7 @@ Best fit for a personal server: expose the site via a **Cloudflare Tunnel**, so
 you never open an inbound port.
 
 1. Cloudflare dashboard → **Zero Trust → Networks → Tunnels → Create tunnel**.
-2. Add a **public hostname** (e.g. `lottery.example.com`) pointing at the service
+2. Add a **public hostname** (e.g. `numbers.example.com`) pointing at the service
    URL **`http://nginx:80`**.
 3. Copy the tunnel **token** into `.env` as `TUNNEL_TOKEN`.
 4. Start everything including the tunnel:

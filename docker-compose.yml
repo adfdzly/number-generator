@@ -1,4 +1,4 @@
-# Lottery Generator — production stack.
+# Number Generator — production stack.
 #
 #   docker compose up -d --build           # web + nginx (open http://SERVER:8080)
 #   docker compose --profile cloudflare up -d --build   # also start Cloudflare Tunnel
@@ -11,7 +11,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: lottery-generator-web
+    image: number-generator-web
     restart: unless-stopped
     expose:
       - "8000"            # internal only; nginx talks to this

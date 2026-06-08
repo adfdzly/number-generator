@@ -1,4 +1,4 @@
-"""Entry point for the Lottery Number Generator desktop app.
+"""Entry point for the Number Generator desktop app.
 
 Run with:
 

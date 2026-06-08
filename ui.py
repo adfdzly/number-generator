@@ -1,4 +1,4 @@
-"""Tkinter desktop UI for the lottery number generator.
+"""Tkinter desktop UI for the number generator.
 
 A clean, modern, object-oriented interface with:
   * format selection (6/49, 6/58 or a custom format),
@@ -32,7 +32,7 @@ from utils import (
 )
 
 CUSTOM_LABEL = "Custom…"
-APP_TITLE = "Lottery Number Generator"
+APP_TITLE = "Number Generator"
 
 
 # --------------------------------------------------------------------------- #
@@ -102,7 +102,7 @@ class LotteryApp(ttk.Frame):
         self.format_var = tk.StringVar(value=DEFAULT_FORMAT.name)
         self.count_var = tk.StringVar(value="5")
         self.unique_var = tk.BooleanVar(value=False)
-        self.custom_name_var = tk.StringVar(value="My Lottery")
+        self.custom_name_var = tk.StringVar(value="My Numbers")
         self.custom_pick_var = tk.StringVar(value="6")
         self.custom_max_var = tk.StringVar(value="49")
         self.status_var = tk.StringVar(value="Ready.")
@@ -356,7 +356,7 @@ class LotteryApp(ttk.Frame):
         path = filedialog.asksaveasfilename(
             title="Save results as TXT", defaultextension=".txt",
             filetypes=[("Text files", "*.txt"), ("All files", "*.*")],
-            initialfile=f"lottery_{self.current_format.name.replace('/', '-')}.txt",
+            initialfile=f"numbers_{self.current_format.name.replace('/', '-')}.txt",
         )
         if not path:
             return
@@ -375,7 +375,7 @@ class LotteryApp(ttk.Frame):
         path = filedialog.asksaveasfilename(
             title="Export results as CSV", defaultextension=".csv",
             filetypes=[("CSV files", "*.csv"), ("All files", "*.*")],
-            initialfile=f"lottery_{self.current_format.name.replace('/', '-')}.csv",
+            initialfile=f"numbers_{self.current_format.name.replace('/', '-')}.csv",
         )
         if not path:
             return
