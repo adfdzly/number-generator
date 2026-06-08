@@ -33,8 +33,13 @@ services:
     depends_on:
       web:
         condition: service_started
-    ports:
-      - "8080:80"         # host:container — change 8080 to taste
+    # No host port published on purpose: the Cloudflare Tunnel reaches nginx
+    # over the internal Docker network (http://nginx:80), so the site is
+    # tunnel-only and never collides with other services on the host (e.g.
+    # filebrowser, nginx-proxy-manager). To test locally WITHOUT the tunnel,
+    # uncomment and pick a FREE host port, bound to localhost:
+    #   ports:
+    #     - "127.0.0.1:8090:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
 
